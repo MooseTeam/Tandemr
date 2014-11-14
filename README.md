@@ -1,4 +1,4 @@
-Tamdemr
+Tandemr
 =======
 
 Android app
