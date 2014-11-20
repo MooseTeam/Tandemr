@@ -38,9 +38,97 @@
             android:text="@+string/profile_gender" />
 
         <Spinner
-	        android:id="@+id/gender_spinner"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
+            android:id="@+id/gender_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="@+string/profile_birthdate" />
+
+        <EditText
+            android:id="@+id/textedit_birthdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:ems="10"
+        	android:inputType="date"
+        	android:focusable="false" />
+        
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/btn_search"
+        android:drawableLeft="@drawable/ic_action_folder_open"
+        android:padding="10dp"
+        android:text="@+string/profile_search"
+        android:textColor="@android:color/white" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+string/profile_message" />
+
+    <EditText
+        android:id="@+id/textedit_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="@+string/profile_email" />
+
+        <EditText
+            android:id="@+id/textedit_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:ems="10"
+        	android:inputType="textEmailAddress" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="@+string/profile_phone" />
+
+        <EditText
+            android:id="@+id/textedit_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:ems="10"
+        	android:inputType="phone" />
         
     </LinearLayout>
 
