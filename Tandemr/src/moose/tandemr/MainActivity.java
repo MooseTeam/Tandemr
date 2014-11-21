@@ -25,6 +25,18 @@ public class MainActivity extends Activity {
             	startActivity(intent);
             }
         });
+        /*Beginning of temporary code : implementation of the button that allows to see another 
+         * user's profile*/
+        Button tmp_button = (Button) findViewById(R.id.tmp_button_foreign_view);
+        tmp_button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, ForeignProfileActivity.class);
+				
+				startActivity(intent);				
+			}
+		});
     }
 
 
