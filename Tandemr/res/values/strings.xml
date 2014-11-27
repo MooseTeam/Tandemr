@@ -7,6 +7,8 @@
     <string name="welcome_bottom">Find people :)</string>
     <string name="profile_name">Name</string>
     <string name="profile_gender">Gender</string>
+    
+    <string name="points_text"> points</string>
 
     <string-array name="gender_array">
         <item>Mercury</item>
