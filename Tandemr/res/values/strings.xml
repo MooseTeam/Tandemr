@@ -20,6 +20,11 @@
     <string name="profile_message">Personal message</string>
     <string name="profile_email">Email</string>
     <string name="profile_phone">Phone</string>
+    <string name="profile_interests">Interests</string>
+    <string name="interests_sports">Sports</string>
+    <string name="interests_party">Party</string>
+    <string name="interests_music">Music</string>
+    <string name="profile_done">Done!</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_foreign_profile">ForeignProfileActivity</string>
 

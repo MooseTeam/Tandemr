@@ -5,12 +5,15 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -91,5 +94,52 @@ public class ProfileActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void onCheckboxClicked(View view) {
+	    // Is the view now checked?
+	    boolean checked = ((CheckBox) view).isChecked();
+	    
+	    AlertDialog.Builder alert_add = new AlertDialog.Builder(this);
+	    alert_add.setTitle("Interests");
+	    alert_add.setMessage("Are you sure you want to add "+((CheckBox) view).getText()+"?");
+	    alert_add.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) { 
+            	// do nothing
+            }
+         });
+	    alert_add.setIcon(android.R.drawable.ic_dialog_alert);
+	    
+	    AlertDialog.Builder alert_delete = new AlertDialog.Builder(this);
+	    alert_delete.setTitle("Interests");
+	    alert_delete.setMessage("Are you sure you want to delete "+((CheckBox) view).getText()+"?");
+	    alert_delete.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) { 
+            	// do nothing
+            }
+         });
+	    alert_delete.setIcon(android.R.drawable.ic_dialog_alert);
+	    
+	    // Check which checkbox was clicked
+	    switch(view.getId()) {
+	        case R.id.checkbox_sports:
+	            if (checked)
+	            	alert_add.show();
+	            else
+	            	alert_delete.show();
+	            break;
+	        case R.id.checkbox_party:
+	            if (checked)
+	            	alert_add.show();
+	            else
+	            	alert_delete.show();
+	            break;
+	        case R.id.checkbox_music:
+	            if (checked)
+	            	alert_add.show();
+	            else
+	            	alert_delete.show();
+	            break;
+	    }
 	}
 }

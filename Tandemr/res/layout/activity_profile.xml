@@ -1,170 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@+string/profile_name" />
-
-        <EditText
-            android:id="@+id/textedit_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-        	android:inputType="text" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@+string/profile_gender" />
-
-        <Spinner
-            android:id="@+id/gender_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@+string/profile_birthdate" />
-
-        <EditText
-            android:id="@+id/textedit_birthdate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-        	android:inputType="date"
-        	android:focusable="false" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/imageViewCircular"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
-            android:src="@+drawable/moose" />
-
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/btn_search"
-            android:drawableLeft="@drawable/ic_action_folder_open"
-            android:padding="10dp"
-            android:text="@+string/profile_search"
-            android:textColor="@+android:color/white"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@+string/profile_message" />
-
-    <EditText
-        android:id="@+id/textedit_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text" />
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@+string/profile_email" />
-
-        <EditText
-            android:id="@+id/textedit_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-        	android:inputType="textEmailAddress" />
+        android:orientation="vertical" >
         
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@+string/profile_phone" />
-
-        <EditText
-            android:id="@+id/textedit_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-        	android:inputType="phone" />
-        
-    </LinearLayout>
-    
-    <RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"   
-		android:orientation="horizontal" >
-
-	    <Button
-	        android:id="@+id/btn_done"
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.25"
+	            android:text="@+string/profile_name" />
+	
+	        <EditText
+	            android:id="@+id/textedit_name"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.75"
+	            android:ems="10"
+	        	android:inputType="text" />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.25"
+	            android:text="@+string/profile_gender" />
+	
+	        <Spinner
+	            android:id="@+id/gender_spinner"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.75" />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.25"
+	            android:text="@+string/profile_birthdate" />
+	
+	        <EditText
+	            android:id="@+id/textedit_birthdate"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.75"
+	            android:ems="10"
+	        	android:inputType="date"
+	        	android:focusable="false" />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <ImageView
+	            android:id="@+id/imageViewCircular"
+	            android:layout_width="0dp"
+	            android:layout_height="80dp"
+	            android:layout_weight="0.5"
+	            android:layout_gravity="center"
+	            android:src="@+drawable/moose" />
+	
+	        <Button
+	            android:id="@+id/btn_search"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dp"
+	            android:layout_weight="0.5"
+	            android:background="@drawable/btn_search"
+	            android:drawableLeft="@drawable/ic_action_folder_open"
+	            android:padding="10dp"
+	            android:text="@+string/profile_search"
+	            android:textColor="@+android:color/white"
+	            android:layout_gravity="center" />
+	
+	    </LinearLayout>
+	    
+	    <TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10dp"
-	        android:background="@+drawable/btn_search"
-	        android:padding="10dp"
-	        android:text="@+string/profile_done"
-	        android:textColor="@+android:color/white"
-	        android:layout_alignParentRight="true" />
+	        android:text="@+string/profile_message" />
+	
+	    <EditText
+	        android:id="@+id/textedit_message"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
 	    
-	</RelativeLayout>
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.25"
+	            android:text="@+string/profile_email" />
+	
+	        <EditText
+	            android:id="@+id/textedit_email"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.75"
+	            android:ems="10"
+	        	android:inputType="textEmailAddress" />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.25"
+	            android:text="@+string/profile_phone" />
+	
+	        <EditText
+	            android:id="@+id/textedit_phone"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.75"
+	            android:ems="10"
+	        	android:inputType="phone" />
+	        
+	    </LinearLayout>
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@+string/profile_interests" />
+	
+	    <CheckBox android:id="@+id/checkbox_sports"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/interests_sports"
+	        android:onClick="onCheckboxClicked"/>
+	    
+	    <CheckBox android:id="@+id/checkbox_party"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/interests_party"
+	        android:onClick="onCheckboxClicked"/>
+	    
+	    <CheckBox android:id="@+id/checkbox_music"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/interests_music"
+	        android:onClick="onCheckboxClicked"/>
+	    
+	    <RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"   
+			android:orientation="horizontal" >
+	
+		    <Button
+		        android:id="@+id/btn_done"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:background="@+drawable/btn_search"
+		        android:padding="10dp"
+		        android:text="@+string/profile_done"
+		        android:textColor="@+android:color/white"
+		        android:layout_alignParentRight="true" />
+		    
+		</RelativeLayout>
+        
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
