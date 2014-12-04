@@ -9,13 +9,17 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Path;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 //the profile of another user 's profile
 //TODO
 public class ForeignProfileActivity extends Activity {
@@ -27,7 +31,7 @@ public class ForeignProfileActivity extends Activity {
 	SharedPreferences sharedpreferences;
 	public static final String MyPREFERENCES = "MyPrefs" ;
 	public static final String foreign_social_points ="foreign social points";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,20 +48,20 @@ public class ForeignProfileActivity extends Activity {
 		//intializing sharedpreferences
 		//creating the entry of the social points of another user . THIS IS TEMPORARY.
 		//because when we will use bluetooth, we'll get this info directly from the other user
-		 sharedpreferences = getSharedPreferences(MyPREFERENCES, 0);
+		sharedpreferences = getSharedPreferences(MyPREFERENCES, 0);
 		SharedPreferences.Editor editor = sharedpreferences.edit();
-		
+
 		if(!sharedpreferences.contains(foreign_social_points)){
 			editor.putInt(foreign_social_points, 0);
 			editor.commit();
 		}
-		
+
 		//Getting the social points via sharedpreference and displaying
 		int points = sharedpreferences.getInt(foreign_social_points, -1);
 		setPoints(points);
 
-		
-		
+
+
 		//init the button which permit to add a social point to the foreign user
 		Button add_1_point = (Button) findViewById(R.id.add_1_social_point_button);
 		add_1_point.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +74,16 @@ public class ForeignProfileActivity extends Activity {
 				editor.commit();
 				TextView points_view = (TextView) findViewById(R.id.foreign_points);
 				setPoints(points);
-				
+
+			}
+		});
+
+		//init the button which is used to send a sms
+		Button send_sms = (Button) findViewById(R.id.button_send_sms);
+		send_sms.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sendSMS();
 			}
 		});
 	}
@@ -131,6 +144,26 @@ public class ForeignProfileActivity extends Activity {
 		points_view.setText(tmp);
 	}
 
+	/**
+	 * Sending a SMS to the foreign user
+	 */
+
+	public void sendSMS() {
+		String phone_number = getString(R.string.foreign_phone);
+		Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+		smsIntent.setData(Uri.parse("smsto:"));
+		smsIntent.setType("vnd.android-dir/mms-sms");
+		smsIntent.putExtra("address",new String(phone_number));
+		smsIntent.putExtra("sms_body","Sms sent by a Tandemr user .\n");
+		try {
+			startActivity(smsIntent);
+			finish();
+			Log.i("Finished sending SMS...", "");
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(ForeignProfileActivity.this, 
+					"SMS faild, please try again later.", Toast.LENGTH_SHORT).show();
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

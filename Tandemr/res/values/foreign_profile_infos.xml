@@ -7,5 +7,6 @@
     <string name="foreign_gender">Animal</string>
     <string name="foreign_phone">01747603793</string>
     <string name="foreign_mail">ptitsualtyy@gmail.com</string>
+    <string name="send_a_sms">Send a SMS</string>
 
 </resources>
