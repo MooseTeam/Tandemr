@@ -86,6 +86,9 @@ public class ForeignProfileActivity extends Activity {
 				sendSMS();
 			}
 		});
+		
+		if(getString(R.string.foreign_phone).length()>=6)
+			send_sms.setVisibility(View.VISIBLE);
 	}
 
 	/**

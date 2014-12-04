@@ -68,7 +68,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/rectangle"
-            android:text="@+string/send_a_sms" />
+            android:text="@+string/send_a_sms"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>
