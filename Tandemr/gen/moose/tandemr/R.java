@@ -34,25 +34,30 @@ public final class R {
         public static final int round_button=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f090012;
+        public static final int action_settings=0x7f090017;
         public static final int add_1_social_point_button=0x7f090004;
-        public static final int btn_done=0x7f090010;
-        public static final int btn_search=0x7f09000c;
+        public static final int btn_done=0x7f090015;
+        public static final int btn_search=0x7f09000e;
         public static final int button_send_sms=0x7f090005;
+        public static final int checkbox_music=0x7f090014;
+        public static final int checkbox_party=0x7f090013;
+        public static final int checkbox_sports=0x7f090012;
         public static final int foreign_image=0x7f090000;
         public static final int foreign_message=0x7f090001;
         public static final int foreign_name=0x7f090002;
         public static final int foreign_points=0x7f090003;
-        public static final int gender_spinner=0x7f090009;
-        public static final int imageViewCircular=0x7f09000b;
-        public static final int listview_background_shape=0x7f090011;
-        public static final int textedit_birthdate=0x7f09000a;
-        public static final int textedit_email=0x7f09000e;
-        public static final int textedit_message=0x7f09000d;
-        public static final int textedit_name=0x7f090008;
-        public static final int textedit_phone=0x7f09000f;
-        public static final int tmp_button_foreign_view=0x7f090007;
-        public static final int welcome_button=0x7f090006;
+        public static final int gender_spinner=0x7f09000b;
+        public static final int imageViewCircular=0x7f09000d;
+        public static final int listview_background_shape=0x7f090016;
+        public static final int main_activity=0x7f090006;
+        public static final int scrollView1=0x7f090009;
+        public static final int textedit_birthdate=0x7f09000c;
+        public static final int textedit_email=0x7f090010;
+        public static final int textedit_message=0x7f09000f;
+        public static final int textedit_name=0x7f09000a;
+        public static final int textedit_phone=0x7f090011;
+        public static final int tmp_button_foreign_view=0x7f090008;
+        public static final int welcome_button=0x7f090007;
     }
     public static final class layout {
         public static final int activity_foreign_profile=0x7f030000;
@@ -73,18 +78,22 @@ public final class R {
         public static final int foreign_name=0x7f050000;
         public static final int foreign_phone=0x7f050003;
         public static final int hello_world=0x7f050007;
+        public static final int interests_music=0x7f050015;
+        public static final int interests_party=0x7f050014;
+        public static final int interests_sports=0x7f050013;
         public static final int points_text=0x7f05000c;
         public static final int profile_birthdate=0x7f05000d;
-        public static final int profile_done=0x7f050014;
+        public static final int profile_done=0x7f050016;
         public static final int profile_email=0x7f050010;
         public static final int profile_gender=0x7f05000b;
+        public static final int profile_interests=0x7f050012;
         public static final int profile_message=0x7f05000f;
         public static final int profile_name=0x7f05000a;
         public static final int profile_phone=0x7f050011;
         public static final int profile_search=0x7f05000e;
         public static final int send_a_sms=0x7f050005;
-        public static final int title_activity_foreign_profile=0x7f050013;
-        public static final int title_activity_profile=0x7f050012;
+        public static final int title_activity_foreign_profile=0x7f050018;
+        public static final int title_activity_profile=0x7f050017;
         public static final int welcome_bottom=0x7f050009;
     }
     public static final class style {

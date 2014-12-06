@@ -13,16 +13,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 //the profile of another user 's profile
-//TODO
-public class ForeignProfileActivity extends Activity {
+public class ForeignProfileActivity extends Fragment{
 	//sharedpreferences allow us to store some variables (like int, string , etc) which 
 	//can be read and wrote . We need it for example for the social points of a user : it's
 	//not static, it will have to increase . We can't use XML for that, because with XML
@@ -32,64 +35,69 @@ public class ForeignProfileActivity extends Activity {
 	public static final String MyPREFERENCES = "MyPrefs" ;
 	public static final String foreign_social_points ="foreign social points";
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_foreign_profile);
-
-		//Displaying of the round profile image
-
-		Bitmap foreign_image = BitmapFactory.decodeResource(getResources(),R.drawable.pinguin);
-		setBitmapClippedCircle(foreign_image);
-
-		//Personnal message
-		setMessage();
-
-		//intializing sharedpreferences
-		//creating the entry of the social points of another user . THIS IS TEMPORARY.
-		//because when we will use bluetooth, we'll get this info directly from the other user
-		sharedpreferences = getSharedPreferences(MyPREFERENCES, 0);
-		SharedPreferences.Editor editor = sharedpreferences.edit();
-
-		if(!sharedpreferences.contains(foreign_social_points)){
-			editor.putInt(foreign_social_points, 0);
-			editor.commit();
-		}
-
-		//Getting the social points via sharedpreference and displaying
-		int points = sharedpreferences.getInt(foreign_social_points, -1);
-		setPoints(points);
-
-
-
-		//init the button which permit to add a social point to the foreign user
-		Button add_1_point = (Button) findViewById(R.id.add_1_social_point_button);
-		add_1_point.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				//Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
-				//startActivity(intent);
-				SharedPreferences.Editor editor = sharedpreferences.edit();
-				int points = sharedpreferences.getInt(foreign_social_points, -1);
-				editor.putInt(foreign_social_points, points+1);
-				editor.commit();
-				TextView points_view = (TextView) findViewById(R.id.foreign_points);
-				setPoints(points);
-
-			}
-		});
-
-		//init the button which is used to send a sms
-		Button send_sms = (Button) findViewById(R.id.button_send_sms);
-		send_sms.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				sendSMS();
-			}
-		});
-		
-		if(getString(R.string.foreign_phone).length()>=6)
-			send_sms.setVisibility(View.VISIBLE);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.activity_foreign_profile, container, false);
 	}
+
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+      //Displaying of the round profile image
+
+      		Bitmap foreign_image = BitmapFactory.decodeResource(getResources(),R.drawable.pinguin);
+      		setBitmapClippedCircle(foreign_image);
+
+      		//Personnal message
+      		setMessage();
+
+      		//intializing sharedpreferences
+      		//creating the entry of the social points of another user . THIS IS TEMPORARY.
+      		//because when we will use bluetooth, we'll get this info directly from the other user
+      		sharedpreferences = super.getActivity().getSharedPreferences(MyPREFERENCES, 0);
+      		SharedPreferences.Editor editor = sharedpreferences.edit();
+
+      		if(!sharedpreferences.contains(foreign_social_points)){
+      			editor.putInt(foreign_social_points, 0);
+      			editor.commit();
+      		}
+
+      		//Getting the social points via sharedpreference and displaying
+      		int points = sharedpreferences.getInt(foreign_social_points, -1);
+      		setPoints(points);
+
+
+
+      		//init the button which permit to add a social point to the foreign user
+      		Button add_1_point = (Button) getView().findViewById(R.id.add_1_social_point_button);
+      		add_1_point.setOnClickListener(new View.OnClickListener() {
+      			public void onClick(View v) {
+      				//Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
+      				//startActivity(intent);
+      				SharedPreferences.Editor editor = sharedpreferences.edit();
+      				int points = sharedpreferences.getInt(foreign_social_points, -1);
+      				editor.putInt(foreign_social_points, points+1);
+      				editor.commit();
+      				TextView points_view = (TextView) getView().findViewById(R.id.foreign_points);
+      				setPoints(points);
+
+      			}
+      		});
+
+      		//init the button which is used to send a sms
+      		Button send_sms = (Button) getView().findViewById(R.id.button_send_sms);
+      		send_sms.setOnClickListener(new View.OnClickListener() {
+      			@Override
+      			public void onClick(View v) {
+      				sendSMS();
+      			}
+      		});
+
+      		if(getString(R.string.foreign_phone).length()>=6)
+      			send_sms.setVisibility(View.VISIBLE);
+       
+    }
+
 
 	/**
 	 * Display an image  as the profile photo 
@@ -97,7 +105,8 @@ public class ForeignProfileActivity extends Activity {
 	 * @return
 	 */
 	public void setBitmapClippedCircle(Bitmap bitmap) {
-		ImageView imageview = (ImageView) findViewById(R.id.foreign_image);
+		ImageView imageview = (ImageView) getView().findViewById(R.id.foreign_image);//nullpointerexception here
+
 		bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
 
 		final int width = bitmap.getWidth();
@@ -105,16 +114,17 @@ public class ForeignProfileActivity extends Activity {
 		final Bitmap outputBitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 
 		final Path path = new Path();
+		
 		path.addCircle(
 				(float)(width / 2)
 				, (float)(height / 2)
 				, (float) Math.min(width, (height / 2))
 				, Path.Direction.CCW);
-
+		
 		final Canvas canvas = new Canvas(outputBitmap);
-		canvas.clipPath(path);
+		canvas.clipPath(path);//nullpointereception here
 		canvas.drawBitmap(bitmap, 0, 0, null);
-		imageview.setImageBitmap(outputBitmap);
+		imageview.setImageBitmap(outputBitmap);//nullpointerexception here
 	}
 
 	/**
@@ -122,7 +132,7 @@ public class ForeignProfileActivity extends Activity {
 	 * @return
 	 */
 	public void setMessage() {
-		TextView message_view = (TextView) findViewById(R.id.foreign_message);
+		TextView message_view = (TextView) getView().findViewById(R.id.foreign_message);
 		String message =  getString(R.string.foreign_message);
 		String tmp ="";
 
@@ -134,14 +144,14 @@ public class ForeignProfileActivity extends Activity {
 			tmp=tmp+c;
 
 		}
-		message_view.setText(tmp);
+		message_view.setText(tmp);//nullpoiterexception here
 	}
 
 	/**Displaying the social points
 	 * 
 	 */
 	public void setPoints(int points) {		
-		TextView points_view = (TextView) findViewById(R.id.foreign_points);
+		TextView points_view = (TextView) getView().findViewById(R.id.foreign_points);
 
 		String tmp= points + " "+getString(R.string.points_text);
 		points_view.setText(tmp);
@@ -160,18 +170,12 @@ public class ForeignProfileActivity extends Activity {
 		smsIntent.putExtra("sms_body","Sms sent by a Tandemr user .\n");
 		try {
 			startActivity(smsIntent);
-			finish();
+			super.getActivity().finish();
 			Log.i("Finished sending SMS...", "");
 		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(ForeignProfileActivity.this, 
+			Toast.makeText(ForeignProfileActivity.super.getActivity(), 
 					"SMS faild, please try again later.", Toast.LENGTH_SHORT).show();
 		}
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.foreign_profile, menu);
-		return true;
 	}
 
 	@Override

@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,6 @@ public class MainActivity extends Activity {
 			}
 		});
 
-
 		/*Beginning of temporary code : implementation of the button that allows to see another 
 		 * user's profile*/
 		Button tmp_button = (Button) findViewById(R.id.tmp_button_foreign_view);
@@ -35,9 +37,12 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, ForeignProfileActivity.class);
 
-				startActivity(intent);				
+			    android.support.v4.app.FragmentManager fragmentManager =  getSupportFragmentManager();
+			    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			    ForeignProfileActivity fragment = new ForeignProfileActivity();
+			    fragmentTransaction.replace(R.id.main_activity, fragment);
+			    fragmentTransaction.commit();
 			}
 		});
 		/*end of the temporary code*/
