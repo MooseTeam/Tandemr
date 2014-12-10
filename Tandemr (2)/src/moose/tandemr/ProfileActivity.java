@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -108,6 +109,20 @@ public class ProfileActivity extends Fragment{
 			        }
 				}
 		);
+		
+		/**
+		 * INTERESTS CHECK BOXS
+		 */
+		OnClickListener checkbox_listener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Is the view now checked?
+			    boolean checked = ((CheckBox) v).isChecked();
+			}
+		};		
+		getView().findViewById(R.id.checkbox_sports).setOnClickListener(checkbox_listener);
+		getView().findViewById(R.id.checkbox_party).setOnClickListener(checkbox_listener);
+		getView().findViewById(R.id.checkbox_music).setOnClickListener(checkbox_listener);
 		
 		/**
 		 * PROFILE PHOTO
