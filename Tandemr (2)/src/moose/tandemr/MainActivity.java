@@ -2,6 +2,8 @@ package moose.tandemr;
 
 
 import android.support.v7.app.ActionBarActivity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -30,6 +33,10 @@ public class MainActivity extends ActionBarActivity {
 	private CharSequence tituloApp;
 	private ActionBarDrawerToggle drawerToggle;
 
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private static final boolean D = true;
+	private static final int REQUEST_ENABLE_BT = 3;
+
 	public boolean isDrawerOpen(int gravity) {
 		return drawerLayout != null && drawerLayout.isDrawerOpen(gravity);
 	}
@@ -47,7 +54,25 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		optionsMenu = new String[] {"Find People", "Profile", "Around me"};
+		// Get local Bluetooth adapter
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		// If the adapter is null, then Bluetooth is not supported
+		if (mBluetoothAdapter == null) {
+			Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+			finish();
+			return;
+		}
+		
+		// If BT is not on, request that it be enabled.
+        // setupChat() will then be called during onActivityResult
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+          	  
+        }
+
+		optionsMenu = getResources().getStringArray(R.array.nav_drawer_items);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.right_drawer);
 
