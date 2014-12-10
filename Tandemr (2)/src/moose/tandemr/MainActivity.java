@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		optionsMenu = new String[] {"Find People", "Profile", "Around me"};
+		optionsMenu = getResources().getStringArray(R.array.nav_drawer_items);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.right_drawer);
 
