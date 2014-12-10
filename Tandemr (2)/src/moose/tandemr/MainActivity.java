@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-      optionsMenu = new String[] {"Find People", "Profile"};
+      optionsMenu = new String[] {"Find People", "Profile", "Around me"};
       drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
       drawerList = (ListView) findViewById(R.id.right_drawer);
 
@@ -73,6 +73,9 @@ public class MainActivity extends ActionBarActivity {
                       break;
                   case 1:
                       fragment = new ProfileActivity();
+                      break;
+                  case 2:
+                      fragment = new AroundYou();
                       break;
               }
    
