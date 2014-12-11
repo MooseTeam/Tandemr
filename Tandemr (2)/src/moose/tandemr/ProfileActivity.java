@@ -298,7 +298,8 @@ public class ProfileActivity extends Fragment{
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
-		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+		
 		switch(requestCode) {
 		case RESULT_LOAD_IMAGE:
 			if(resultCode == Activity.RESULT_OK){  

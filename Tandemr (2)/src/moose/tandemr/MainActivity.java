@@ -163,7 +163,8 @@ public class MainActivity extends ActionBarActivity {
 	 * On Bluetooth activity result
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(D) Log.i("Bluetooth", "onActivityResult");
+		super.onActivityResult(requestCode, resultCode, data);
+
 		switch (requestCode) {
 		case REQUEST_CONNECT_DEVICE_SECURE:
 			// When DeviceListActivity returns with a device to connect
