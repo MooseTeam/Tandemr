@@ -51,6 +51,7 @@
         <item >Around me</item>
     </string-array>
     
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Tandemr.</string>
     
 </resources>
 
