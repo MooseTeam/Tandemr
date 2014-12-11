@@ -32,7 +32,17 @@ import android.widget.TextView;
 
 public class AroundYou extends ListFragment {
 	private ForeignUser[] foreignUser;
-	
+
+	public static AroundYou myInstance(ForeignUser[] foreignUser){
+		AroundYou myFragment = new AroundYou();
+		myFragment.setForeignUser(foreignUser);
+		return myFragment;
+	}
+
+	public void setForeignUser(ForeignUser[] fu){
+		this.foreignUser = fu;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		return super.onCreateView(inflater, container, savedInstanceState);
@@ -41,11 +51,13 @@ public class AroundYou extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		
-		initForeignUsers();
+		//to modifiy it could make problems AFTER not now
+		if(this.foreignUser==null || this.foreignUser.length == 0)
+			initForeignUsers();
+
 		Bitmap[] pictures = new Bitmap[this.foreignUser.length];
 		String[] names = new String[this.foreignUser.length];
-		
+
 		for(int i = 0; i < pictures.length;i++){
 			ForeignUser fu = this.foreignUser[i];
 			Bitmap img = fu.getProfile_picture();
@@ -53,7 +65,7 @@ public class AroundYou extends ListFragment {
 			pictures[i] = img;
 			names[i] = txt;
 		}
-		
+
 		MyAdapter adapter = new MyAdapter(pictures,names);
 		setListAdapter(adapter);
 		((MyAdapter) getListAdapter()).setImages();
@@ -64,7 +76,7 @@ public class AroundYou extends ListFragment {
 		private LayoutInflater mInflater;
 		private Bitmap[] images;
 		private String[] names;
-		
+
 		MyAdapter(Bitmap[] img,String[] txt) {
 			mInflater = (LayoutInflater)AroundYou.this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			images = img;
@@ -117,25 +129,25 @@ public class AroundYou extends ListFragment {
 			return convertView;
 		}
 	}
-	
-	
+
+
 	private static class ViewHolder {
 		public ImageView imageView;
 		public TextView textView;
 	}
-	
+
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		TextView view = (TextView) v.findViewById(R.id.name);
 		String txt  = view.getText().toString();
-		ForeignUser fu = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"");
+		ForeignUser fu = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Sports","Music"});
 
-		
+
 		for(int i = 0;i< this.foreignUser.length;i++){
 			if(foreignUser[i].getName()==txt)
 				fu = foreignUser[i];
 		}
-		
+
 		Fragment fr= ForeignProfileActivity.myInstance(fu);
 		FragmentManager fm = getActivity().getSupportFragmentManager();
 
@@ -144,7 +156,7 @@ public class AroundYou extends ListFragment {
 		fragmentTransaction.addToBackStack(null);
 		fragmentTransaction.commit();
 	}
-	
+
 	public Bitmap getBitmapClippedCircle(Bitmap bitmap,int width,int height,Canvas canvas) {
 
 		bitmap = Bitmap.createScaledBitmap(bitmap, width,height, false);
@@ -164,24 +176,24 @@ public class AroundYou extends ListFragment {
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		return outputBitmap;
 	}
-	
+
 	/**
 	 * Temporary method which fill the table of ForeignUser . Later, we'll get those foreign user 
 	 * instance via bluetooth
 	 */
 	public void initForeignUsers() {
-		ForeignUser caribou = new ForeignUser(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a mose, damn it!", 0,"");
-		ForeignUser orca = new ForeignUser(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you likes waves?",500,"01747603793");
-		ForeignUser seal = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"");
-		ForeignUser bear = new ForeignUser(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"");
+		ForeignUser caribou = new ForeignUser(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"});
+		ForeignUser orca = new ForeignUser(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"});
+		ForeignUser seal = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"});
+		ForeignUser bear = new ForeignUser(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"});
 		ForeignUser pingu = new ForeignUser(getActivity().getApplicationContext());
-		
+
 		this.foreignUser = new ForeignUser[]{
-			caribou,
-			orca,
-			seal,
-			pingu,
-			bear
+				caribou,
+				orca,
+				seal,
+				pingu,
+				bear
 		};
 	}
 

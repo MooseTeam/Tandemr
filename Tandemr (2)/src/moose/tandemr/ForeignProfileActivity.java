@@ -111,6 +111,23 @@ public class ForeignProfileActivity extends Fragment{
 		if(phone.length()>=6)
 			send_sms.setVisibility(View.VISIBLE);
 
+		//setting the interests
+		String[] interests = this.foreign_user.getInterests();
+		TextView sports = (TextView) getView().findViewById(R.id.interest_sport);
+		TextView music = (TextView) getView().findViewById(R.id.interest_music);
+		TextView party = (TextView) getView().findViewById(R.id.interest_party);
+		for(int i = 0; i < interests.length;i++){
+			if(interests[i].equals("Sports"))
+				sports.setVisibility(View.VISIBLE);
+
+			if(interests[i].equals("Music"))
+				music.setVisibility(View.VISIBLE);
+
+			if(interests[i].equals("Party"))
+				party.setVisibility(View.VISIBLE);
+
+		}
+
 	}
 
 	/**

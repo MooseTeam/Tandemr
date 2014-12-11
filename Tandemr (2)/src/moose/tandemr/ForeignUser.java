@@ -17,7 +17,7 @@ public class ForeignUser {
 	private String personal_message;
 	private int social_points;
 	private String phone_number;
-	
+	private String[] interests;
 
 	//Default Pingu's profile :)
 	public ForeignUser(Context context) {
@@ -25,18 +25,29 @@ public class ForeignUser {
 		this.profile_picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.pinguin);
 		this.personal_message = "Ok, for now I'm just a baby, but one day I wanna be a majestic creature !";
 		this.social_points = 0;
+		this.interests = new String []{
+				"Sports",
+				"Party",
+				"Music"
+			};
+		
 		this.phone_number="01747603793";
 	}
 	
 	//constructor
-	public ForeignUser(Context context,String name,int id_profile_picture,String personal_message,int social_points,String phone_number){
+	public ForeignUser(Context context,String name,int id_profile_picture,String personal_message,int social_points,String phone_number,String[] interests){
 		this.name = name;
 		this.profile_picture =BitmapFactory.decodeResource(context.getResources(),id_profile_picture);
 		this.personal_message = personal_message;
 		this.social_points = social_points;
 		this.phone_number = phone_number;
+		this.interests = interests;
 	}
 
+	public String[] getInterests() {
+		return this.interests;
+	}
+	
 	public String getName() {
 		return name;
 	}

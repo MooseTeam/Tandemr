@@ -112,6 +112,9 @@ public class MainActivity extends ActionBarActivity {
 				case 2:
 					fragment = new AroundYou();
 					break;
+				case 3:
+					fragment = new FilterInterest();
+					break;
 				}
 
 				FragmentManager fragmentManager =
