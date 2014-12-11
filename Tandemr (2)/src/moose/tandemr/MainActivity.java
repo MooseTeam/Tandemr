@@ -2,11 +2,13 @@ package moose.tandemr;
 
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +37,10 @@ public class MainActivity extends ActionBarActivity {
 
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private static final boolean D = true;
+
+	// Intent request codes
+	private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+	private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
 	private static final int REQUEST_ENABLE_BT = 3;
 
 	public boolean isDrawerOpen(int gravity) {
@@ -63,14 +69,14 @@ public class MainActivity extends ActionBarActivity {
 			finish();
 			return;
 		}
-		
+
 		// If BT is not on, request that it be enabled.
-        // setupChat() will then be called during onActivityResult
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-          	  
-        }
+		// setupChat() will then be called during onActivityResult
+		if (!mBluetoothAdapter.isEnabled()) {
+			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+
+		}
 
 		optionsMenu = getResources().getStringArray(R.array.nav_drawer_items);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,13 +153,39 @@ public class MainActivity extends ActionBarActivity {
 		drawerLayout.setDrawerListener(drawerToggle);
 
 		/*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 		 */
 
 
 	}
 
+	/**
+	 * On Bluetooth activity result
+	 */
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(D) Log.i("Bluetooth", "onActivityResult");
+		switch (requestCode) {
+		case REQUEST_CONNECT_DEVICE_SECURE:
+			// When DeviceListActivity returns with a device to connect
 
+			break;
+		case REQUEST_CONNECT_DEVICE_INSECURE:
+			// When DeviceListActivity returns with a device to connect
+
+			break;
+		case REQUEST_ENABLE_BT:
+			// When the request to enable Bluetooth returns
+			if (resultCode == Activity.RESULT_OK) {
+				// Bluetooth is now enabled, so set up a chat session
+
+			} else {
+				// User did not enable Bluetooth or an error occurred
+				Log.i("Bluetooth", "BT not enabled");
+				Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+				finish();
+			}
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,10 +214,10 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		/*int id = item.getItemId();
-        if (id == R.id.action_compose) {
-        	drawerLayout.openDrawer(Gravity.RIGHT);
-            return true;
-        }*/
+	        if (id == R.id.action_compose) {
+	        	drawerLayout.openDrawer(Gravity.RIGHT);
+	            return true;
+	        }*/
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -202,8 +234,6 @@ public class MainActivity extends ActionBarActivity {
 		drawerToggle.onConfigurationChanged(newConfig);
 	}
 
-
-
 	public void selectFrag(View view) {
 		Fragment fr=null;
 
@@ -219,7 +249,6 @@ public class MainActivity extends ActionBarActivity {
 			tituloSeccion=optionsMenu[2];
 			getSupportActionBar().setTitle(tituloSeccion);
 			drawerList.setItemChecked(2, true);
-
 		}
 
 		FragmentManager fm = getSupportFragmentManager();
@@ -228,10 +257,6 @@ public class MainActivity extends ActionBarActivity {
 		fragmentTransaction.replace(R.id.content_frame, fr);
 		fragmentTransaction.addToBackStack(null);
 		fragmentTransaction.commit();
-
 	}
-
+	
 }
-
-
-
