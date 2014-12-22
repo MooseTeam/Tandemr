@@ -30,6 +30,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,6 +71,9 @@ public class ProfileActivity extends Fragment{
 	private Uri fileUri = null; 
 	// image
 	ImageView imgView;
+	
+	MainActivity act;
+
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
@@ -78,6 +82,8 @@ public class ProfileActivity extends Fragment{
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
+		act = (MainActivity)ProfileActivity.this.getActivity();
 
 		/**
 		 * SPINNER
@@ -359,16 +365,55 @@ public class ProfileActivity extends Fragment{
 	private void previewLoadImage() {
 		try {
 			Bitmap bitmap = MediaStore.Images.Media.getBitmap(
-					this.getActivity().getContentResolver(), fileUri);			
+					this.getActivity().getContentResolver(), fileUri);	
+			Bitmap bitmapsmall=bitmap;
 			bitmap = circleShape(bitmap);
 	        imgView.setImageBitmap(bitmap);
+	        
+	        //change navdrawer profile image
+			bitmapsmall = Bitmap.createScaledBitmap(bitmapsmall, 100,100, false);
+			BitmapDrawable icon = new BitmapDrawable(this.getResources(),bitmapsmall);
+			//navDrawerItems.get(0).setIcon(icon);
+			act.navDrawerItems.get(0).setIcon(icon);
+			
+			/*Fragment fragment= new ProfileActivity();
+			FragmentManager fragmentManager = act.getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();*/
+
 	        
 	    } catch (FileNotFoundException e) {
 			Drawable myDrawable = getResources().getDrawable(R.drawable.moose);
 			imgView.setImageDrawable(myDrawable);
 			
+	        //change navdrawer profile image
+
+			Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), 
+				    R.drawable.moose_100);
+			BitmapDrawable icon = new BitmapDrawable(this.getResources(),bitmap);
+			act.navDrawerItems.get(0).setIcon(icon);
+			
+			
+
+			
 		} catch (IOException e) {
 			imgView.setImageURI(fileUri);
+			
+	        //change navdrawer profile image
+
+		    try {
+		        // bimatp factory
+		        BitmapFactory.Options options = new BitmapFactory.Options();
+		        Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+		                options);
+				bitmap = Bitmap.createScaledBitmap(bitmap, 100,100, false);
+				BitmapDrawable icon = new BitmapDrawable(this.getResources(),bitmap);
+				//navDrawerItems.get(0).setIcon(icon);
+				act.navDrawerItems.get(0).setIcon(icon);
+
+
+		    } catch (NullPointerException e1) {
+		        e1.printStackTrace();
+		    }
 		}
 	}
 

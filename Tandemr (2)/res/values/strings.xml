@@ -55,6 +55,9 @@
         <item>Around me</item>
         <item>Filter Interest</item>
     </string-array>
+        <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    
 
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Tandemr.</string>
 

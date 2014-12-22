@@ -12,12 +12,15 @@
 	</FrameLayout>
 
     <!-- Menú Lateral -->
+
+    
     <ListView
+        android:layout_height="match_parent"
         android:id="@+id/right_drawer"
         android:layout_width="240dp"
-        android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="#111"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/list_selector"
+        android:background="@color/list_background"/>
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,12 +1,12 @@
 package moose.tandemr;
 
+import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,6 +32,10 @@ public class MainActivity extends ActionBarActivity {
 	private CharSequence sectionTittle= null;
 	private CharSequence appTittle;
 	private ActionBarDrawerToggle drawerToggle;
+	
+	ArrayList<NavDrawerItem> navDrawerItems;
+	private NavDrawerListAdapter adapter;
+
 
 	private BluetoothAdapter BluetoothAdapter = null;
 
@@ -40,6 +43,9 @@ public class MainActivity extends ActionBarActivity {
 	private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
 	private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
 	private static final int REQUEST_ENABLE_BT = 3;
+	
+	int before=1;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,25 +70,59 @@ public class MainActivity extends ActionBarActivity {
 
 		}
 		
+		/*Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), 
+			    R.drawable.moose_100);
+		//bitmap = Bitmap.createScaledBitmap(bitmap, 100,100, false);
+		BitmapDrawable icon = new BitmapDrawable(this.getResources(),bitmap);
+		//navDrawerItems.get(0).setIcon(icon);*/
+
+		
 		//get from the xmls the elements which we need
 		optionsMenu = getResources().getStringArray(R.array.nav_drawer_items);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.right_drawer);
 
+		navDrawerItems = new ArrayList<NavDrawerItem>();
+		// adding nav drawer items to array
+		// Home
+		navDrawerItems.add(new NavDrawerItem("[User]", null,true));
+		// Find People
+		navDrawerItems.add(new NavDrawerItem(optionsMenu[0],null,false));
+		// Photos
+		navDrawerItems.add(new NavDrawerItem(optionsMenu[1], null, false));
+		// Communities, Will add a counter here
+		navDrawerItems.add(new NavDrawerItem(optionsMenu[2], null, false));
+		// Pages
+		navDrawerItems.add(new NavDrawerItem(optionsMenu[3], null, false));
+		
+		// setting the nav drawer list adapter
+		adapter = new NavDrawerListAdapter(getApplicationContext(),
+				navDrawerItems);
+		drawerList.setAdapter(adapter);
+
 		//fill the NavDrawer with the required information.
-		drawerList.setAdapter(new ArrayAdapter<String>(getSupportActionBar().getThemedContext(),
+		/*drawerList.setAdapter(new ArrayAdapter<String>(getSupportActionBar().getThemedContext(),
 				(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) ?
 						android.R.layout.simple_list_item_activated_1 :
-							android.R.layout.simple_list_item_1, optionsMenu));//http://www.sgoliver.net/blog/?p=4104
+							android.R.layout.simple_list_item_1, optionsMenu));//http://www.sgoliver.net/blog/?p=4104*/
 
 		
 		//when the app is launched, it shows the fragment FindPeople by default.
-		Fragment fragment= new FindPeople();
+		//First charging profileactivity to refresh and get the last image in 
+		//charged in the profile
+		Fragment fragment= new ProfileActivity();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-		sectionTittle=optionsMenu[0];
+
+		fragment= new FindPeople();
+		fragmentManager = getSupportFragmentManager();
+		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+		sectionTittle=optionsMenu[1];
 		getSupportActionBar().setTitle(sectionTittle);
-		drawerList.setItemChecked(0, true);
+		drawerList.setItemChecked(1, true);
+		
+		//navDrawerItems.get(0).setIcon(icon);
 
 		
 		//make the onclicklistener of the elements in the NavDrawer and shows, detects what is the element
@@ -96,32 +136,40 @@ public class MainActivity extends ActionBarActivity {
 
 				switch (position) {
 				case 0:
-					fragment = new FindPeople();
+					drawerList.setItemChecked(before, true);
+
 					break;
 				case 1:
-					fragment = new ProfileActivity();
+					fragment = new FindPeople();
 					break;
 				case 2:
-					fragment = new AroundYou();
+					fragment = new ProfileActivity();
 					break;
 				case 3:
+					fragment = new AroundYou();
+					break;
+				case 4:
 					fragment = new FilterInterest();
 					break;
 				}
 
-				FragmentManager fragmentManager =
-						getSupportFragmentManager();
+				if(position!=0){
+					before=position;
 
-				fragmentManager.beginTransaction()
-				.replace(R.id.content_frame, fragment)
-				.commit();
+					FragmentManager fragmentManager =
+							getSupportFragmentManager();
 
-				drawerList.setItemChecked(position, true);
+					fragmentManager.beginTransaction()
+					.replace(R.id.content_frame, fragment)
+					.commit();
 
-				sectionTittle = optionsMenu[position];
-				getSupportActionBar().setTitle(sectionTittle);
+					drawerList.setItemChecked(position, true);
 
-				drawerLayout.closeDrawer(drawerList);
+					sectionTittle = optionsMenu[position-1];
+					getSupportActionBar().setTitle(sectionTittle);
+
+					drawerLayout.closeDrawer(drawerList);
+				}
 			}
 		});
 
@@ -218,16 +266,18 @@ public class MainActivity extends ActionBarActivity {
 
 		if(view == findViewById(R.id.welcome_button)){
 			fr = new ProfileActivity();
-			sectionTittle=optionsMenu[1];
+			sectionTittle=optionsMenu[2];
 			getSupportActionBar().setTitle(sectionTittle);
-			drawerList.setItemChecked(1, true);
+			drawerList.setItemChecked(2, true);
+			before=2;
 		}
 
 		else if(view == findViewById(R.id.btn_done)) {
 			fr = new AroundYou();
-			sectionTittle=optionsMenu[2];
+			sectionTittle=optionsMenu[3];
 			getSupportActionBar().setTitle(sectionTittle);
-			drawerList.setItemChecked(2, true);
+			drawerList.setItemChecked(3, true);
+			before=3;
 		}
 
 		FragmentManager fm = getSupportFragmentManager();
