@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -70,11 +73,11 @@ public class MainActivity extends ActionBarActivity {
 
 		}
 		
-		/*Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), 
+		Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), 
 			    R.drawable.moose_100);
 		//bitmap = Bitmap.createScaledBitmap(bitmap, 100,100, false);
 		BitmapDrawable icon = new BitmapDrawable(this.getResources(),bitmap);
-		//navDrawerItems.get(0).setIcon(icon);*/
+		//navDrawerItems.get(0).setIcon(icon);
 
 		
 		//get from the xmls the elements which we need
@@ -85,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 		// adding nav drawer items to array
 		// Home
-		navDrawerItems.add(new NavDrawerItem("[User]", null,true));
+		navDrawerItems.add(new NavDrawerItem("[User]", icon,true));
 		// Find People
 		navDrawerItems.add(new NavDrawerItem(optionsMenu[0],null,false));
 		// Photos
