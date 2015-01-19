@@ -4,11 +4,13 @@
     <string name="foreign_name">Pingu</string>
     <string name="foreign_message">Hello I\'m a pinguin ! Ok,I\'m just a baby for now, but
         one day, I wanna be a majestic creature ! </string>
-    <string name="foreign_gender">Animal</string>
     <string name="foreign_phone">01747603793</string>
-    <string name="foreign_mail">ptitsualtyy@gmail.com</string>
     <string name="send_a_sms">Send a SMS</string>
-
+    <string name="foreign_age"> Age : </string>
+	<string name ="foreign_gender"> Gender : </string>
+	<string name="foreign_mail"> Mail : </string>
+    <string name="send_a_mail">Send a Mail</string>
+    <string name="interests">Interests :</string>
     <color name="white">#FFFFFF</color>
 
 </resources>

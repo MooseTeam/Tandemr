@@ -1,5 +1,8 @@
 package moose.tandemr;
 
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -28,16 +31,14 @@ import android.graphics.drawable.Drawable;
 
 //the profile of another user 's profile
 public class ForeignProfileActivity extends Fragment{
-	//sharedpreferences allow us to store some variables (like int, string , etc) which 
-	//can be read and wrote . We need it for example for the social points of a user : it's
-	//not static, it will have to increase . We can't use XML for that, because with XML
-	//we just can read the variables and to modify them .
 
 	SharedPreferences sharedpreferences;
 	public static final String MyPREFERENCES = "MyPrefs" ;
 	public static final String foreign_social_points ="foreign social points";
 
 	private ForeignUser foreign_user;//contains the foreign user informations that we are going to display
+
+	private Calendar last_add_point;
 
 	public static ForeignProfileActivity myInstance(ForeignUser foreign_user){
 		ForeignProfileActivity myFragment = new ForeignProfileActivity();
@@ -78,6 +79,8 @@ public class ForeignProfileActivity extends Fragment{
 		//setting the name 
 		setName(this.foreign_user.getName());
 
+		//setting the gender
+		setGender(this.foreign_user.getGender());
 		//Getting the social points via sharedpreference and displaying
 		int points = sharedpreferences.getInt(foreign_social_points, -1);
 		setPoints(points);
@@ -85,19 +88,42 @@ public class ForeignProfileActivity extends Fragment{
 
 
 		//init the button which permit to add a social point to the foreign user
+		this.last_add_point = Calendar.getInstance();
+		this.last_add_point.set(2000, 02, 2, 2, 2, 2);
+
 		Button add_1_point = (Button) getView().findViewById(R.id.add_1_social_point_button);
 		add_1_point.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				SharedPreferences.Editor editor = sharedpreferences.edit();
-				int points = sharedpreferences.getInt(foreign_social_points, -1);
-				editor.putInt(foreign_social_points, points+1);
-				editor.commit();
-				TextView points_view = (TextView) getView().findViewById(R.id.foreign_points);
-				setPoints(points);
-
+				Calendar actual = Calendar.getInstance();
+				if((getLastAddPoint() == null) 
+						|| (Math.abs(daysBetween(getLastAddPoint(),actual))> 7)){
+					SharedPreferences.Editor editor = sharedpreferences.edit();
+					int points = sharedpreferences.getInt(foreign_social_points, -1);
+					editor.putInt(foreign_social_points, points+1);
+					editor.commit();
+					TextView points_view = (TextView) getView().findViewById(R.id.foreign_points);
+					setPoints(points);
+					setLastAddPoint(actual);
+				}
 			}
 		});
 
+		//setting the age
+		setAge(this.foreign_user.getAge());
+		
+		//init the button which is used to send a mail . It calls the sendMail functuin
+		Button send_mail = (Button) getView().findViewById(R.id.button_send_mail);
+		send_mail.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sendMail(foreign_user.getMail());
+			}
+		});
+		
+		String mail = foreign_user.getMail();
+		if(mail.length()>4)
+			send_mail.setVisibility(View.VISIBLE);
+		
 		//init the button which is used to send a sms . It calls the sendSMS function
 		Button send_sms = (Button) getView().findViewById(R.id.button_send_sms);
 		send_sms.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +162,23 @@ public class ForeignProfileActivity extends Fragment{
 	public void setName(String name) {
 		TextView view = (TextView) getView().findViewById(R.id.foreign_name);
 		view.setText(name);
+	}
+
+	/**
+	 * Set the age
+	 */
+	public void setAge(int age) {
+		TextView view = (TextView) getView().findViewById(R.id.foreign_age);
+		String age_string = Integer.toString(age);
+		view.setText(age_string);
+	}
+
+	/**
+	 * Set the gender
+	 */
+	public void setGender(String gender) {
+		TextView view = (TextView) getView().findViewById(R.id.foreign_gender);
+		view.setText(gender);
 	}
 	/**
 	 * Take a bitmap, modify it and then put it in the imageview foreign_image
@@ -194,6 +237,23 @@ public class ForeignProfileActivity extends Fragment{
 	}
 
 	/**
+	 * Sending a mail to the mail 
+	 */
+	public void sendMail(String mail) {
+		Intent emailIntent = new Intent( android.content.Intent.ACTION_SEND);
+		emailIntent.setType("plain/text");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { mail });
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Email Subject");
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,"Mail sent by a Tandemr user .\n");
+		try {
+			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+		}
+		catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(ForeignProfileActivity.super.getActivity(), 
+					"Mail faild, please try again later.", Toast.LENGTH_SHORT).show();
+		}
+	}
+	/**
 	 * Sending a SMS to the phone number phone_number
 	 */
 
@@ -223,5 +283,20 @@ public class ForeignProfileActivity extends Fragment{
 			return true;
 		}*/
 		return super.onOptionsItemSelected(item);
+	}
+
+	public long daysBetween(Calendar startDate, Calendar endDate) {
+		long end = endDate.getTimeInMillis();
+		long start = startDate.getTimeInMillis();
+		long diff = end - start;
+		return diff / (24 * 60 * 60 * 1000);
+	}
+
+	public Calendar getLastAddPoint() {
+		return this.last_add_point;
+	}
+
+	public void setLastAddPoint(Calendar c) {
+		this.last_add_point = c;
 	}
 }

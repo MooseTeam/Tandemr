@@ -1,57 +1,65 @@
 package moose.tandemr;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Bitmap.Config;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+/**
+ * Show all people around the user .
+ * 
+ *
+ */
 public class AroundYou extends ListFragment {
 	private ForeignUser[] foreignUser;
 
+	/**
+	 * A method which defines an instance AroundYou with a table of users
+	 * @param foreignUser
+	 * @return
+	 */
 	public static AroundYou myInstance(ForeignUser[] foreignUser){
 		AroundYou myFragment = new AroundYou();
 		myFragment.setForeignUser(foreignUser);
 		return myFragment;
 	}
 
+	/**
+	 * Set the table of foreign users
+	 * @param fu
+	 */
 	public void setForeignUser(ForeignUser[] fu){
 		this.foreignUser = fu;
 	}
 
+	/**
+	 * Create the view
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
+	/**
+	 * Initialize the view : get each user and display his/her picture and name in a list .
+	 */
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		//to modifiy it could make problems AFTER not now
+		//to modifiy 
 		if(this.foreignUser==null || this.foreignUser.length == 0)
 			initForeignUsers();
 
@@ -72,6 +80,11 @@ public class AroundYou extends ListFragment {
 
 	}
 
+	/**
+	 * the adapter which defines the list 
+	 * 
+	 *
+	 */
 	private class MyAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 		private Bitmap[] images;
@@ -102,13 +115,11 @@ public class AroundYou extends ListFragment {
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -130,18 +141,24 @@ public class AroundYou extends ListFragment {
 		}
 	}
 
-
+	/**
+	 * Keep inside what's going to be displayes on each row of the list .
+	 * 
+	 *
+	 */
 	private static class ViewHolder {
 		public ImageView imageView;
 		public TextView textView;
 	}
 
+	/**
+	 * Defines what happen when we click on an element of the list 
+	 */
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		TextView view = (TextView) v.findViewById(R.id.name);
 		String txt  = view.getText().toString();
-		ForeignUser fu = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Sports","Music"});
-
+		ForeignUser fu = new ForeignUser(getActivity().getApplicationContext());
 
 		for(int i = 0;i< this.foreignUser.length;i++){
 			if(foreignUser[i].getName()==txt)
@@ -157,6 +174,14 @@ public class AroundYou extends ListFragment {
 		fragmentTransaction.commit();
 	}
 
+	/**
+	 * Modify an image to put it round .
+	 * @param bitmap
+	 * @param width
+	 * @param height
+	 * @param canvas
+	 * @return
+	 */
 	public Bitmap getBitmapClippedCircle(Bitmap bitmap,int width,int height,Canvas canvas) {
 
 		bitmap = Bitmap.createScaledBitmap(bitmap, width,height, false);
@@ -182,12 +207,12 @@ public class AroundYou extends ListFragment {
 	 * instance via bluetooth
 	 */
 	public void initForeignUsers() {
-		ForeignUser caribou = new ForeignUser(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"});
-		ForeignUser orca = new ForeignUser(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"});
-		ForeignUser seal = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"});
-		ForeignUser bear = new ForeignUser(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"});
+		ForeignUser caribou = new ForeignUser(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"},10,"Mercury","lagouge@polytech.unice.fr");
+		ForeignUser orca = new ForeignUser(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"},15,"Venus","");
+		ForeignUser seal = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"},20,"Venus","lagouge@polytech.unice.fr");
+		ForeignUser bear = new ForeignUser(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"},18,"Mercury","");
 		ForeignUser pingu = new ForeignUser(getActivity().getApplicationContext());
-
+		
 		this.foreignUser = new ForeignUser[]{
 				caribou,
 				orca,
