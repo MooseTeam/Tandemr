@@ -1,0 +1,228 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+        <!-- NAME -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="30dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+       			android:textSize="20dp"
+                android:text="@+string/profile_name" />
+
+            <EditText
+                android:id="@+id/textedit_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10"
+       			android:textSize="20dp"
+                android:inputType="text" />
+        </LinearLayout>
+        
+        <!-- GENDER -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+       			android:textSize="20dp"
+                android:text="@+string/profile_gender" />
+
+            <Spinner
+                android:id="@+id/gender_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+        </LinearLayout>
+
+        <!-- BIRTH DATE -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+       			android:textSize="20dp"
+                android:text="@+string/profile_birthdate" />
+
+            <EditText
+                android:id="@+id/textedit_birthdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10"
+       			android:textSize="20dp"
+                android:focusable="false"
+                android:inputType="date" />
+        </LinearLayout>
+
+        <!-- PROFILE PHOTO -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp" >
+
+            <ImageView
+                android:id="@+id/profile_imageView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:src="@+drawable/moose" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/btn_search"
+                android:drawableLeft="@drawable/ic_action_folder_open"
+                android:padding="10dp"
+                android:text="@+string/profile_search"
+                android:textColor="@+android:color/white" />
+        </LinearLayout>
+
+        <!-- PERSONAL MESSAGE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+     		android:textSize="20dp"
+            android:text="@+string/profile_message" />
+
+        <EditText
+            android:id="@+id/textedit_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+       		android:textSize="20dp"
+            android:inputType="text" />
+
+        <!-- EMAIL -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+       			android:textSize="20dp"
+                android:text="@+string/profile_email" />
+
+            <EditText
+                android:id="@+id/textedit_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10"
+       			android:textSize="20dp"
+                android:inputType="textEmailAddress" />
+        </LinearLayout>
+
+        <!-- PHONE -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+       			android:textSize="20dp"
+                android:text="@+string/profile_phone" />
+
+            <EditText
+                android:id="@+id/textedit_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10"
+       			android:textSize="20dp"
+                android:inputType="phone" />
+        </LinearLayout>
+
+        <!-- INTERESTS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+       		android:textSize="20dp"
+            android:text="@+string/profile_interests" />
+
+        <CheckBox
+            android:id="@+id/checkbox_sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+       		android:textSize="20dp"
+            android:text="@string/interests_sports" />
+
+        <CheckBox
+            android:id="@+id/checkbox_party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+       		android:textSize="20dp"
+            android:text="@string/interests_party" />
+
+        <CheckBox
+            android:id="@+id/checkbox_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:textSize="20dp"
+            android:text="@string/interests_music" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp" >
+
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:background="@+drawable/btn_search"
+                android:onClick="selectFrag"
+                android:padding="10dp"
+                android:text="@+string/profile_done"
+                android:textColor="@+android:color/white" />
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+</ScrollView>
