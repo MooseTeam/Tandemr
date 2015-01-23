@@ -28,7 +28,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="14dp"
-        android:contentDescription="@string/desc_list_item_icon"
-        android:src="@drawable/action_search" />
+        android:contentDescription="@string/desc_list_item_icon" />
     
 </RelativeLayout>

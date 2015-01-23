@@ -1,5 +1,6 @@
 package moose.tandemr;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,13 +25,18 @@ import android.widget.TextView;
  *
  */
 public class AroundYou extends ListFragment {
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
 	
 	/**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static AroundYou newInstance() {
+    public static AroundYou newInstance(int sectionNumber) {
     	AroundYou fragment = new AroundYou();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
     
@@ -41,9 +47,13 @@ public class AroundYou extends ListFragment {
 	 * @param foreignUser
 	 * @return
 	 */
-	public static AroundYou newInstance(ForeignUser[] foreignUser){
+	public static AroundYou newInstance(ForeignUser[] foreignUser,int sectionNumber){
 		AroundYou fragment = new AroundYou();
 		fragment.setForeignUser(foreignUser);
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+
 		return fragment;
 	}
 
@@ -229,5 +239,15 @@ public class AroundYou extends ListFragment {
 				bear
 		};
 	}
+	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(
+                getArguments().getInt(ARG_SECTION_NUMBER));
+    }
+
+	
+
 
 }

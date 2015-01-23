@@ -1,6 +1,8 @@
 package moose.tandemr;
 
 import java.util.ArrayList;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,12 +13,17 @@ import android.widget.Button;
 
 public class FilterInterest extends Fragment {
 	
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
 	/**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static FilterInterest newInstance() {
+    public static FilterInterest newInstance(int sectionNumber) {
     	FilterInterest fragment = new FilterInterest();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -46,7 +53,7 @@ public class FilterInterest extends Fragment {
 							fu[i] = result.get(i);
 						}
 
-						AroundYou fragment = AroundYou.newInstance(fu);
+						AroundYou fragment = AroundYou.newInstance(fu,4);
 						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
 					} 
@@ -64,7 +71,7 @@ public class FilterInterest extends Fragment {
 							fu[i] = result.get(i);
 						}
 
-						AroundYou fragment = AroundYou.newInstance(fu);
+						AroundYou fragment = AroundYou.newInstance(fu,4);
 						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
 					} 
@@ -82,7 +89,7 @@ public class FilterInterest extends Fragment {
 							fu[i] = result.get(i);
 						}
 
-						AroundYou fragment = AroundYou.newInstance(fu);
+						AroundYou fragment = AroundYou.newInstance(fu,4);
 						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
 					} 
@@ -127,4 +134,12 @@ public class FilterInterest extends Fragment {
 		}
 		return result;
 	}
+	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(
+                getArguments().getInt(ARG_SECTION_NUMBER));
+    }
+
 }

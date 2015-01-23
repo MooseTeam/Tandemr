@@ -57,6 +57,10 @@ public class NavDrawerAdapter extends BaseAdapter {
 		this.icon = icon;
 	}
 	
+	public void setTitle(String[] titles){
+		this.titles = titles;
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		//TODO Auto-generated method stub

@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity
 	    if (savedInstanceState == null) {
 	        FragmentManager fragmentManager = getSupportFragmentManager();
 	    	fragmentManager.beginTransaction()
-	        .replace(R.id.container, FindPeople.newInstance())
+	        .replace(R.id.container, FindPeople.newInstance(1))
 	        .commit();
 	    }
     }
@@ -141,22 +141,22 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
         case 1:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, FindPeople.newInstance())
+            .replace(R.id.container, FindPeople.newInstance(position))
             .commit();
             break;
         case 2:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, ProfileActivity.newInstance())
+            .replace(R.id.container, ProfileActivity.newInstance(position))
             .commit();
             break;
         case 3:      	
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, AroundYou.newInstance())
+            .replace(R.id.container, AroundYou.newInstance(position))
             .commit();
             break;
         case 4:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, FilterInterest.newInstance())
+            .replace(R.id.container, FilterInterest.newInstance(position))
             .commit();
             break;
         }
@@ -164,16 +164,16 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 2:
+            case 1:
                 mTitle = getString(R.string.title_section1);
                 break;
-            case 3:
+            case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 4:
+            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 5:
+            case 4:
                 mTitle = getString(R.string.title_section4);
                 break;
         }
@@ -206,9 +206,9 @@ public class MainActivity extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
     
@@ -218,14 +218,17 @@ public class MainActivity extends ActionBarActivity
 
   		if(view == findViewById(R.id.welcome_button)){
   			fragmentManager.beginTransaction()
-              .replace(R.id.container, ProfileActivity.newInstance())
+              .replace(R.id.container, ProfileActivity.newInstance(2))
               .commit();
+  			NavigationDrawerFragment.mDrawerListView.setItemChecked(2, true);
   		}
 
   		else if(view == findViewById(R.id.btn_done)) {
   			fragmentManager.beginTransaction()
-              .replace(R.id.container, AroundYou.newInstance())
+              .replace(R.id.container, AroundYou.newInstance(3))
               .commit();
+  			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+
   		}
   	}
 
@@ -236,8 +239,10 @@ public class MainActivity extends ActionBarActivity
 
 		if(btn == findViewById(R.id.btn_done)) {
 			fragmentManager.beginTransaction()
-            .replace(R.id.container, AroundYou.newInstance())
+            .replace(R.id.container, AroundYou.newInstance(3))
             .commit();
+  			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+
 		}
 	}
 }

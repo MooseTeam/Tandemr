@@ -49,12 +49,17 @@ import android.widget.Toast;
 
 public class ProfileActivity extends Fragment{
 	
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
 	/**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static ProfileActivity newInstance() {
+    public static ProfileActivity newInstance(int sectionNumber) {
     	ProfileActivity fragment = new ProfileActivity();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
 	
@@ -457,6 +462,16 @@ public class ProfileActivity extends Fragment{
 		BitmapDrawable icon = new BitmapDrawable(this.getResources(), bitmapsmall);
 		//navDrawerItems.get(0).setIcon(icon);
 		activity.getNavigationDrawerFragment().getNavDrawerAdapter().setIcon(icon);
+		String[] titleString = new String[2];
+        titleString = new String[]{
+        		"Pepito",
+        		getString(R.string.title_section1),
+        		getString(R.string.title_section2),
+              	getString(R.string.title_section3),
+              	getString(R.string.title_section4)
+	    };		
+        activity.getNavigationDrawerFragment().getNavDrawerAdapter().setTitle(titleString);
+
 	}
 
 	/**
@@ -478,4 +493,12 @@ public class ProfileActivity extends Fragment{
 		return circleBitmap;
 
 	}
+	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(
+                getArguments().getInt(ARG_SECTION_NUMBER));
+    }
+
 }
