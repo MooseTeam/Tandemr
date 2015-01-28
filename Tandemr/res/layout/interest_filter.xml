@@ -19,7 +19,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="0.5"
                 android:padding="10dp"
-                android:text="@+string/interests_sports"
+                android:text="@+string/sports"
                  />
         </LinearLayout>
         <LinearLayout
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="0.5"
                 android:padding="10dp"
-                android:text="@+string/interests_party"
+                android:text="@+string/party"
                  />
         </LinearLayout>        
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="0.5"
                 android:padding="10dp"
-                android:text="@+string/interests_music"
+                android:text="@+string/music"
                  />    
    		</LinearLayout>
 </LinearLayout>

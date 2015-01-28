@@ -53,6 +53,7 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
 
 	private BluetoothAdapter BluetoothAdapter = null;
+	ActionBar actionBar = null;
 
 	// Intent request codes
 	private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
@@ -180,7 +181,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
@@ -221,6 +222,9 @@ public class MainActivity extends ActionBarActivity
               .replace(R.id.container, ProfileActivity.newInstance())
               .commit();
   			NavigationDrawerFragment.mDrawerListView.setItemChecked(2, true);
+            mTitle = getString(R.string.title_section2);
+  			actionBar.setTitle(mTitle);
+
   		}
 
   		else if(view == findViewById(R.id.btn_done)) {
@@ -228,6 +232,9 @@ public class MainActivity extends ActionBarActivity
               .replace(R.id.container, AroundYou.newInstance())
               .commit();
   			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+            mTitle = getString(R.string.title_section3);
+  	        actionBar.setTitle(mTitle);
+
 
   		}
   	}
