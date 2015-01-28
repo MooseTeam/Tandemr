@@ -57,8 +57,8 @@ public class NavDrawerAdapter extends BaseAdapter {
 		this.icon = icon;
 	}
 	
-	public void setTitle(String[] titles){
-		this.titles = titles;
+	public void setTitle(String title){
+		this.titles[0] = title;
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ public class ForeignProfileActivity extends Fragment{
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static ForeignProfileActivity newInstance(ForeignUser foreign_user) {
+    public static ForeignProfileActivity newInstance(User foreign_user) {
     	ForeignProfileActivity fragment = new ForeignProfileActivity();
     	fragment.setUser(foreign_user);
         return fragment;
@@ -51,17 +51,17 @@ public class ForeignProfileActivity extends Fragment{
 	
 	private static final String STATE_SELECTED_PROFILE = "selected_profile";
 
-	private ForeignUser foreign_user;//contains the foreign user informations that we are going to display
+	private User foreign_user;//contains the foreign user informations that we are going to display
 	
 	private Calendar last_add_point;
 	 
-    public static ForeignProfileActivity myInstance(ForeignUser foreign_user){
+    public static ForeignProfileActivity myInstance(User foreign_user){
         ForeignProfileActivity myFragment = new ForeignProfileActivity();
         myFragment.setUser(foreign_user);
         return myFragment;
     }
 
-	public void setUser(ForeignUser user) {
+	public void setUser(User user) {
 		this.foreign_user = user;
 	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -79,10 +79,10 @@ public class ForeignProfileActivity extends Fragment{
 		}
 
 		//Displaying of the round profile image
-        setBitmapClippedCircle(foreign_user.getProfile_picture(),300,300);
+        setBitmapClippedCircle(foreign_user.getProfilePicture(),300,300);
  
         //Personnal message
-        setMessage(foreign_user.getPersonal_message());
+        setMessage(foreign_user.getPersonalMessage());
  
         //intializing sharedpreferences
         sharedpreferences = super.getActivity().getSharedPreferences(MyPREFERENCES, 0);
@@ -151,11 +151,11 @@ public class ForeignProfileActivity extends Fragment{
         send_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSMS(foreign_user.getPhone_number());
+                sendSMS(foreign_user.getPhone());
             }
         });
  
-        String phone = foreign_user.getPhone_number();
+        String phone = foreign_user.getPhone();
         if(phone.length()>=6)
             send_sms.setVisibility(View.VISIBLE);
  

@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity
 	    if (savedInstanceState == null) {
 	        FragmentManager fragmentManager = getSupportFragmentManager();
 	    	fragmentManager.beginTransaction()
-	        .replace(R.id.container, FindPeople.newInstance(1))
+	        .replace(R.id.container, FindPeople.newInstance())
 	        .commit();
 	    }
     }
@@ -141,22 +141,22 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
         case 1:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, FindPeople.newInstance(position))
+            .replace(R.id.container, FindPeople.newInstance())
             .commit();
             break;
         case 2:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, ProfileActivity.newInstance(position))
+            .replace(R.id.container, ProfileActivity.newInstance())
             .commit();
             break;
         case 3:      	
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, AroundYou.newInstance(position))
+            .replace(R.id.container, AroundYou.newInstance())
             .commit();
             break;
         case 4:
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, FilterInterest.newInstance(position))
+            .replace(R.id.container, FilterInterest.newInstance())
             .commit();
             break;
         }
@@ -218,14 +218,14 @@ public class MainActivity extends ActionBarActivity
 
   		if(view == findViewById(R.id.welcome_button)){
   			fragmentManager.beginTransaction()
-              .replace(R.id.container, ProfileActivity.newInstance(2))
+              .replace(R.id.container, ProfileActivity.newInstance())
               .commit();
   			NavigationDrawerFragment.mDrawerListView.setItemChecked(2, true);
   		}
 
   		else if(view == findViewById(R.id.btn_done)) {
   			fragmentManager.beginTransaction()
-              .replace(R.id.container, AroundYou.newInstance(3))
+              .replace(R.id.container, AroundYou.newInstance())
               .commit();
   			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
 
@@ -239,7 +239,7 @@ public class MainActivity extends ActionBarActivity
 
 		if(btn == findViewById(R.id.btn_done)) {
 			fragmentManager.beginTransaction()
-            .replace(R.id.container, AroundYou.newInstance(3))
+            .replace(R.id.container, AroundYou.newInstance())
             .commit();
   			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
 

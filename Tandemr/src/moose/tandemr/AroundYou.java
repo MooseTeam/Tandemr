@@ -25,35 +25,28 @@ import android.widget.TextView;
  *
  */
 public class AroundYou extends ListFragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
+	
+	private static int SECTION_NUMBER = 3;
 	
 	/**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static AroundYou newInstance(int sectionNumber) {
+    public static AroundYou newInstance() {
     	AroundYou fragment = new AroundYou();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
         return fragment;
     }
     
-    private ForeignUser[] foreignUser;
+    private User[] foreignUser;
 
 	/**
 	 * A method which defines an instance AroundYou with a table of users
 	 * @param foreignUser
 	 * @return
 	 */
-	public static AroundYou newInstance(ForeignUser[] foreignUser,int sectionNumber){
+	public static AroundYou newInstance(User[] foreignUser){
 		AroundYou fragment = new AroundYou();
 		fragment.setForeignUser(foreignUser);
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-
 		return fragment;
 	}
 
@@ -61,7 +54,7 @@ public class AroundYou extends ListFragment {
 	 * Set the table of foreign users
 	 * @param fu
 	 */
-	public void setForeignUser(ForeignUser[] fu){
+	public void setForeignUser(User[] fu){
 		this.foreignUser = fu;
 	}
 
@@ -87,8 +80,8 @@ public class AroundYou extends ListFragment {
 		String[] names = new String[this.foreignUser.length];
 
 		for(int i = 0; i < pictures.length;i++){
-			ForeignUser fu = this.foreignUser[i];
-			Bitmap img = fu.getProfile_picture();
+			User fu = this.foreignUser[i];
+			Bitmap img = fu.getProfilePicture();
 			String txt = fu.getName();
 			pictures[i] = img;
 			names[i] = txt;
@@ -178,7 +171,7 @@ public class AroundYou extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		TextView view = (TextView) v.findViewById(R.id.name);
 		String txt  = view.getText().toString();
-		ForeignUser fu = new ForeignUser(getActivity().getApplicationContext());
+		User fu = new User(getActivity().getApplicationContext());
 
 		for(int i = 0;i< this.foreignUser.length;i++){
 			if(foreignUser[i].getName()==txt)
@@ -225,13 +218,13 @@ public class AroundYou extends ListFragment {
 	 * instance via bluetooth
 	 */
 	public void initForeignUsers() {
-		ForeignUser caribou = new ForeignUser(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"},10,"Mercury","lagouge@polytech.unice.fr");
-		ForeignUser orca = new ForeignUser(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"},15,"Venus","");
-		ForeignUser seal = new ForeignUser(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"},20,"Venus","lagouge@polytech.unice.fr");
-		ForeignUser bear = new ForeignUser(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"},18,"Mercury","");
-		ForeignUser pingu = new ForeignUser(getActivity().getApplicationContext());
+		User caribou = new User(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"},10,"Mercury","lagouge@polytech.unice.fr");
+		User orca = new User(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"},15,"Venus","");
+		User seal = new User(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"},20,"Venus","lagouge@polytech.unice.fr");
+		User bear = new User(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"},18,"Mercury","");
+		User pingu = new User(getActivity().getApplicationContext());
 		
-		this.foreignUser = new ForeignUser[]{
+		this.foreignUser = new User[]{
 				caribou,
 				orca,
 				seal,
@@ -239,15 +232,11 @@ public class AroundYou extends ListFragment {
 				bear
 		};
 	}
-	
+    
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
+        ((MainActivity) activity).onSectionAttached(SECTION_NUMBER);
     }
-
-	
-
 
 }
