@@ -32,7 +32,9 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +49,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends Fragment{
@@ -77,6 +80,7 @@ public class ProfileActivity extends Fragment{
 	private String myFormat = "dd/MM/yyyy";
 	// German format
 	private SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMANY);
+	private ArrayList<Boolean> interests = new ArrayList<Boolean>();
 
 	/**
 	 * Profile photo
@@ -86,24 +90,24 @@ public class ProfileActivity extends Fragment{
 	// directory name to store captured images
 	private static final String IMAGE_DIRECTORY_NAME = "Tandemr";
 	// file url to store image
-	private Uri fileUri = null; 
+	private static Uri fileUri = null; 
 	// image
-	private ImageView imgView;
+	private static ImageView imgView;
 	
 	/**
 	 * To save the view
 	 */
-	private View mView;
+	private static View mView;
 	
 	/**
 	 * To save this.getActivity()
 	 */
-	private MainActivity mActivity;
+	private static MainActivity mActivity;
 	
 	/**
 	 * To save the profile data
 	 */
-	private User mUser;
+	private static User mUser;
 
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -117,6 +121,9 @@ public class ProfileActivity extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 
 		mActivity = (MainActivity)ProfileActivity.this.getActivity();
+		
+		( (TextView) getView().findViewById(R.id.interests) ).setTextColor(
+				( (TextView) getView().findViewById(R.id.name) ).getCurrentTextColor() );
 
 		/**
 		 * SPINNER
@@ -171,6 +178,9 @@ public class ProfileActivity extends Fragment{
 			public void onClick(View v) {
 				// Is the view now checked?
 				boolean checked = ((CheckBox) v).isChecked();
+				if(checked){
+
+		        }
 			}
 		};
 		// Add the listener to all checkboxes
@@ -213,25 +223,66 @@ public class ProfileActivity extends Fragment{
 		btn_done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	// Perform action on click
-            	/**
-            	 * Save data
-            	 */
-            	// We need an Editor object to make preference changes.
-    			// All objects are from android.context.Context
-    			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-    			SharedPreferences.Editor editor = settings.edit();  			
-    			// Save the profile data in a string
-    			editor.putString("profile_user", profileToString());
-            	// Commit the edits!
-    			editor.commit();
-            	
-            	/**
-            	 * Change fragment
-            	 */
-            	mActivity.selectFrag(btn_done);
+            	if ( checkValidation () ){
+	            	/**
+	            	 * Save data
+	            	 */
+	            	// We need an Editor object to make preference changes.
+	    			// All objects are from android.context.Context
+	    			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	    			SharedPreferences.Editor editor = settings.edit();  			
+	    			// Save the profile data in a string
+	    			editor.putString("profile_user", profileToString());
+	            	// Commit the edits!
+	    			editor.commit();
+	    			
+	    			// Unlocked navdrawer if it is locked
+	    			if(MainActivity.navIsLocked()){
+	    				// Set up the drawer.
+	    	            mActivity.getNavigationDrawerFragment().setUp(
+	    	                    R.id.navigation_drawer,
+	    	                    (DrawerLayout) mActivity.findViewById(R.id.drawer_layout));
+	    	            // Unlock the drawer
+	    	            ((DrawerLayout) mActivity.findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+	    	            MainActivity.setNavUnlocked();
+	    			}
+	    			
+	    		    /**
+	    		     * Update the profile image
+	    		     */
+	    		    previewLoadImage();
+	    		    
+	    		    /**
+	    		     * Update the navigation drawer
+	    		     */
+	    		    updateNavdrawer();
+	            	
+	            	/**
+	            	 * Change fragment
+	            	 */
+	            	mActivity.selectFrag(btn_done);
+            	}
+            	else
+                    Toast.makeText(mActivity, "Form contains error", Toast.LENGTH_LONG).show();
             }
         });
 	}
+	
+    private boolean checkValidation() {
+        boolean ret = true;
+        
+        EditText name = (EditText) getView().findViewById(R.id.textedit_name);
+        EditText email = (EditText) getView().findViewById(R.id.textedit_email);
+        EditText phone = (EditText) getView().findViewById(R.id.textedit_phone);
+ 
+        if (!Validation.requiredText(name)) ret = false;
+        if (fileUri == null){ ret = false; ((Button) getView().findViewById(R.id.btn_search)).setError("required");}
+        if (Validation.hasText(email) && !Validation.isEmailAddress(email, true)) ret = false;
+        if (Validation.hasText(phone) && !Validation.isPhoneNumber(phone, true)) ret = false;
+        if (!Validation.interestChecked(getView())) ret = false;
+ 
+        return ret;
+    }
 
 	/**
 	 * Save image when the screen rotates
@@ -401,7 +452,7 @@ public class ProfileActivity extends Fragment{
 	/**
 	 * Display load image from a path to ImageView
 	 */
-	private void previewLoadImage() {
+	private static void previewLoadImage() {
 //		TODO
 //		if (fileUri != null) {
 //		}
@@ -414,7 +465,7 @@ public class ProfileActivity extends Fragment{
 	        imgView.setImageBitmap(bitmap);
 	        
 	    } catch (FileNotFoundException e) {
-			Drawable myDrawable = getResources().getDrawable(R.drawable.moose);
+			Drawable myDrawable = mActivity.getResources().getDrawable(R.drawable.moose);
 			imgView.setImageDrawable(myDrawable);
 			
 		} catch (IOException e) {
@@ -426,16 +477,29 @@ public class ProfileActivity extends Fragment{
 	/**
 	 * Update data of Navdrawer
 	 */
-	private void updateNavdrawer(){
+	private static void updateNavdrawer(){
 		changeNavdrawerImage();
+		
 		EditText name = (EditText) mView.findViewById(R.id.textedit_name);
-		//TODO
+		//Put the user name in the navigation drawer
+        mActivity.getNavigationDrawerFragment().getNavDrawerAdapter().setTitle(
+        		name.getText().toString() );
+	}
+	
+	/**
+	 * Update data of Navdrawer
+	 */
+	private static void updateNavdrawer(Activity activity, String name){
+		changeNavdrawerImage(activity);
+
+		//Put the user name in the navigation drawer
+		((MainActivity) activity).getNavigationDrawerFragment().getNavDrawerAdapter().setTitle(name);
 	}
 	
 	/**
 	 * Create a from the image
 	 */
-	private void changeNavdrawerImage(){
+	private static void changeNavdrawerImage(){
 //		TODO
 //		if (fileUri != null) {
 //		}
@@ -455,12 +519,37 @@ public class ProfileActivity extends Fragment{
         // Set navdrawer profile image
 		bitmapsmall = Bitmap.createScaledBitmap(bitmapsmall, 100,100, false);
 		bitmapsmall = circleShape(bitmapsmall);
-		BitmapDrawable icon = new BitmapDrawable(this.getResources(), bitmapsmall);
+		BitmapDrawable icon = new BitmapDrawable(mActivity.getResources(), bitmapsmall);
 		//navDrawerItems.get(0).setIcon(icon);
 		mActivity.getNavigationDrawerFragment().getNavDrawerAdapter().setIcon(icon);
-		
-		//Put the user name in the navigation drawer
-        mActivity.getNavigationDrawerFragment().getNavDrawerAdapter().setTitle("Pepito");
+	}
+	
+	/**
+	 * Create a from the image
+	 */
+	private static void changeNavdrawerImage(Activity activity){
+//		TODO
+//		if (fileUri != null) {
+//		}
+		// Get the bitmap from the actual uri
+		Bitmap bitmapsmall = null;
+		try {
+			bitmapsmall = MediaStore.Images.Media.getBitmap(
+					activity.getContentResolver(), fileUri);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        // Set navdrawer profile image
+		bitmapsmall = Bitmap.createScaledBitmap(bitmapsmall, 100,100, false);
+		bitmapsmall = circleShape(bitmapsmall);
+		BitmapDrawable icon = new BitmapDrawable(activity.getResources(), bitmapsmall);
+		//navDrawerItems.get(0).setIcon(icon);
+		((MainActivity) activity).getNavigationDrawerFragment().getNavDrawerAdapter().setIcon(icon);
 	}
 
 	/**
@@ -521,10 +610,25 @@ public class ProfileActivity extends Fragment{
 		return JsonUtil.toJSon(mUser);
 	}
 	
+	public static void updateProfile(Activity activity){
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity);
+		if(settings.contains("profile_user")){
+			
+			mUser = JsonUtil.fromJSon(settings.getString("profile_user", null));
+			
+			fileUri = Uri.parse(mUser.getProfilePictureUri());
+		    
+		    /**
+		     * Update the navigation drawer
+		     */
+		    updateNavdrawer(activity, mUser.getName());
+		}
+	}
+	
 	/**
 	 * Retrieve profile from string
 	 */
-	private void stringToProfile(String data){
+	private static void stringToProfile(String data){
 		// Retrieve the profile data
 		mUser = JsonUtil.fromJSon(data);
 		
@@ -557,12 +661,12 @@ public class ProfileActivity extends Fragment{
 	    ArrayList<String> interests = mUser.getInterestsArray();
 	    
 	    for(String i : interests) {
-	    	if( i.equals( getResources().getString(R.string.sports) ) )
-	    		( (CheckBox) getView().findViewById(R.id.checkbox_sports) ).setChecked(true);
-	    	else if( i.equals( getResources().getString(R.string.party) ) )
-	    		( (CheckBox) getView().findViewById(R.id.checkbox_party) ).setChecked(true);
-	    	else if( i.equals(  getResources().getString(R.string.music) ) )
-	    		( (CheckBox) getView().findViewById(R.id.checkbox_music) ).setChecked(true);
+	    	if( i.equals( mActivity.getResources().getString(R.string.sports) ) )
+	    		( (CheckBox) mActivity.findViewById(R.id.checkbox_sports) ).setChecked(true);
+	    	else if( i.equals( mActivity.getResources().getString(R.string.party) ) )
+	    		( (CheckBox) mActivity.findViewById(R.id.checkbox_party) ).setChecked(true);
+	    	else if( i.equals(  mActivity.getResources().getString(R.string.music) ) )
+	    		( (CheckBox) mActivity.findViewById(R.id.checkbox_music) ).setChecked(true);
 	    }
 	    
 	    /**
@@ -573,7 +677,7 @@ public class ProfileActivity extends Fragment{
 	    /**
 	     * Update the navigation drawer
 	     */
-		changeNavdrawerImage();
+	    updateNavdrawer();
 	}
 	
     @Override

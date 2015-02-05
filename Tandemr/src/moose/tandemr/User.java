@@ -65,7 +65,7 @@ public class User implements Parcelable {
 	//Default Pingu's profile :)
 	public User(Context context) {
 		this.name = "Pingu";
-		this.profile_picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.pinguin);
+		this.profile_picture = BitmapFactory.decodeResource(context.getResources(), R.drawable.pinguin);
 		this.personal_message = "Ok, for now I'm just a baby, but one day I wanna be a majestic creature !";
 		this.social_points = 0;
 		this.interests = new String []{

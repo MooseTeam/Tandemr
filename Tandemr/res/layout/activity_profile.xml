@@ -17,6 +17,7 @@
             android:paddingBottom="30dp" >
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
@@ -105,7 +106,8 @@
                 android:drawableLeft="@drawable/ic_action_folder_open"
                 android:padding="10dp"
                 android:text="@+string/profile_search"
-                android:textColor="@+android:color/white" />
+                android:textColor="@+android:color/white"
+                style="@android:style/Widget.EditText" />
         </LinearLayout>
 
         <!-- PERSONAL MESSAGE -->
@@ -174,9 +176,12 @@
 
         <!-- INTERESTS -->
         <TextView
+            android:id="@+id/interests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
        		android:textSize="20dp"
+       		style="@android:style/Widget.EditText"
+       		android:background="@null"
             android:text="@+string/profile_interests" />
 
         <CheckBox

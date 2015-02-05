@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -46,6 +47,8 @@ public class MainActivity extends ActionBarActivity
     public NavigationDrawerFragment getNavigationDrawerFragment(){
     	return mNavigationDrawerFragment;
     }
+    
+    private static boolean navLocked = false;
     
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -90,11 +93,19 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
+     
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        if(hasProfile(this)){
+        	// Set up the drawer.
+            mNavigationDrawerFragment.setUp(
+                    R.id.navigation_drawer,
+                    (DrawerLayout) findViewById(R.id.drawer_layout));
+            ProfileActivity.updateProfile(this);
+        }
+        else{
+        	((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        	navLocked = true;
+        }
         
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	    if (savedInstanceState == null) {
@@ -104,6 +115,25 @@ public class MainActivity extends ActionBarActivity
 	        .commit();
 	    }
     }
+    
+    /**
+     * Return true if the navigation drawer is locked
+     */
+	public static boolean navIsLocked() {
+		return navLocked;
+	}
+    
+    /**
+     * Return true if the navigation drawer is locked
+     */
+	public static void setNavUnlocked() {
+		navLocked = false;
+	}
+	
+	public static boolean hasProfile(Activity activity){
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity);
+		return settings.contains("profile_user");
+	}
     
     /**
 	 * On Bluetooth activity result
@@ -218,24 +248,22 @@ public class MainActivity extends ActionBarActivity
   		FragmentManager fragmentManager = getSupportFragmentManager();
 
   		if(view == findViewById(R.id.welcome_button)){
-  			fragmentManager.beginTransaction()
-              .replace(R.id.container, ProfileActivity.newInstance())
-              .commit();
-  			NavigationDrawerFragment.mDrawerListView.setItemChecked(2, true);
-            mTitle = getString(R.string.title_section2);
-  			actionBar.setTitle(mTitle);
-
-  		}
-
-  		else if(view == findViewById(R.id.btn_done)) {
-  			fragmentManager.beginTransaction()
-              .replace(R.id.container, AroundYou.newInstance())
-              .commit();
-  			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
-            mTitle = getString(R.string.title_section3);
-  	        actionBar.setTitle(mTitle);
-
-
+  			if(hasProfile(this)){
+  				fragmentManager.beginTransaction()
+                .replace(R.id.container, AroundYou.newInstance())
+                .commit();
+    			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+    			mTitle = getString(R.string.title_section3);
+    	        actionBar.setTitle(mTitle);
+  			}
+  			else{
+  				fragmentManager.beginTransaction()
+	              .replace(R.id.container, ProfileActivity.newInstance())
+	              .commit();
+	  			NavigationDrawerFragment.mDrawerListView.setItemChecked(2, true);
+	            mTitle = getString(R.string.title_section2);
+	  			actionBar.setTitle(mTitle);
+  			}
   		}
   	}
 
@@ -248,7 +276,9 @@ public class MainActivity extends ActionBarActivity
 			fragmentManager.beginTransaction()
             .replace(R.id.container, AroundYou.newInstance())
             .commit();
-  			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+			NavigationDrawerFragment.mDrawerListView.setItemChecked(3, true);
+			mTitle = getString(R.string.title_section3);
+	        actionBar.setTitle(mTitle);
 
 		}
 	}
