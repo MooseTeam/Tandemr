@@ -207,6 +207,30 @@
             android:onClick="onCheckboxClicked"
             android:textSize="20dp"
             android:text="@string/music" />
+        
+                <CheckBox
+            android:id="@+id/checkbox_languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:textSize="20dp"
+            android:text="@string/languages" />
+                
+                        <CheckBox
+            android:id="@+id/checkbox_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:textSize="20dp"
+            android:text="@string/food" />
+                        
+                                <CheckBox
+            android:id="@+id/checkbox_flirt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:textSize="20dp"
+            android:text="@string/flirt" />
 
         <RelativeLayout
             android:layout_width="fill_parent"

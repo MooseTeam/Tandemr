@@ -92,6 +92,61 @@ public class FilterInterest extends Fragment {
 					} 
 				});
 		
+		Button languages = (Button) FilterInterest.this.getView().findViewById(R.id.btn_languages);
+		languages.setOnClickListener(
+				new View.OnClickListener() { 
+					@Override 
+					public void onClick(View v) {
+						ArrayList<User> result = filter("Languages");
+						User[] fu = new User[result.size()];
+
+						for(int i =0; i< result.size();i++) {
+							fu[i] = result.get(i);
+						}
+
+						AroundYou fragment = AroundYou.newInstance(fu);
+						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+					} 
+				});
+		
+		Button food = (Button) FilterInterest.this.getView().findViewById(R.id.btn_food);
+		food.setOnClickListener(
+				new View.OnClickListener() { 
+					@Override 
+					public void onClick(View v) {
+						ArrayList<User> result = filter("Food");
+						User[] fu = new User[result.size()];
+
+						for(int i =0; i< result.size();i++) {
+							fu[i] = result.get(i);
+						}
+
+						AroundYou fragment = AroundYou.newInstance(fu);
+						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+					} 
+				});
+		
+		Button flirt = (Button) FilterInterest.this.getView().findViewById(R.id.btn_flirt);
+		flirt.setOnClickListener(
+				new View.OnClickListener() { 
+					@Override 
+					public void onClick(View v) {
+						ArrayList<User> result = filter("Flirt");
+						User[] fu = new User[result.size()];
+
+						for(int i =0; i< result.size();i++) {
+							fu[i] = result.get(i);
+						}
+
+						AroundYou fragment = AroundYou.newInstance(fu);
+						FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+						fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+					} 
+				});
+		
+		
 
 	}
 	/**
@@ -99,10 +154,10 @@ public class FilterInterest extends Fragment {
 	 * instance via bluetooth
 	 */
 	public void initForeignUsers() {
-		User caribou = new User(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music"},10,"Mercury","lagouge@polytech.unice.fr");
-		User orca = new User(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports"},15,"Venus","");
-		User seal = new User(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music"},20,"Venus","lagouge@polytech.unice.fr");
-		User bear = new User(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports"},18,"Mercury","");
+		User caribou = new User(getActivity().getApplicationContext(), "René",R.drawable.caribou,"Stop telling me that I am a moose, damn it!", 0,"",new String[]{"Party","Sports","Music","Languages","Flirt"},10,"Mercury","lagouge@polytech.unice.fr");
+		User orca = new User(getActivity().getApplicationContext(),"Willy",R.drawable.orca,"I like waves :) Do you like waves?",500,"015751103923",new String[]{"Party","Sports","Languages"},15,"Venus","");
+		User seal = new User(getActivity().getApplicationContext(),"Martin",R.drawable.seal,"Honk honk!",600,"",new String[]{"Party","Music","Food"},20,"Venus","lagouge@polytech.unice.fr");
+		User bear = new User(getActivity().getApplicationContext(),"Teddy",R.drawable.bear,"Wanna cuddles ?", 700,"",new String[]{"Sports","Food","Flirt"},18,"Mercury","");
 		User pingu = new User(getActivity().getApplicationContext());
 	this.foreignUser = new ArrayList<User>();
 		this.foreignUser.add(caribou);

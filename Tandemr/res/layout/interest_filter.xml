@@ -5,55 +5,106 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="30dp" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
 
-            <Button
-                android:id="@+id/btn_sport"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.5"
-                android:padding="10dp"
-                android:text="@+string/sports"
-                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/btn_sport"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="30dp" >
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/sports" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_party"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.5"
-                android:padding="10dp"
-                android:text="@+string/party"
-                 />
-        </LinearLayout>        
-        <LinearLayout
-            android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <Button
+            android:id="@+id/btn_party"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="30dp" >
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/party" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_music"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.5"
-                android:padding="10dp"
-                android:text="@+string/music"
-                 />    
-   		</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <Button
+            android:id="@+id/btn_music"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/music" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <Button
+            android:id="@+id/btn_languages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/languages" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <Button
+            android:id="@+id/btn_food"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/food" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <Button
+            android:id="@+id/btn_flirt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:padding="10dp"
+            android:text="@+string/flirt" />
+    </LinearLayout>
+
 </LinearLayout>

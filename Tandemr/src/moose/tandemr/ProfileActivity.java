@@ -187,7 +187,9 @@ public class ProfileActivity extends Fragment{
 		getView().findViewById(R.id.checkbox_sports).setOnClickListener(checkbox_listener);
 		getView().findViewById(R.id.checkbox_party).setOnClickListener(checkbox_listener);
 		getView().findViewById(R.id.checkbox_music).setOnClickListener(checkbox_listener);
-
+		getView().findViewById(R.id.checkbox_languages).setOnClickListener(checkbox_listener);
+		getView().findViewById(R.id.checkbox_food).setOnClickListener(checkbox_listener);
+		getView().findViewById(R.id.checkbox_flirt).setOnClickListener(checkbox_listener);
 		/**
 		 * PROFILE PHOTO
 		 */
@@ -595,6 +597,21 @@ public class ProfileActivity extends Fragment{
 		}
 		if(	( (CheckBox) getView().findViewById(R.id.checkbox_music) ).isChecked()	){
 			CheckBox mInterest = (CheckBox) getView().findViewById(R.id.checkbox_music);
+			interests.add(mInterest.getText().toString());
+		}
+		
+		if(	( (CheckBox) getView().findViewById(R.id.checkbox_languages) ).isChecked()	){
+			CheckBox mInterest = (CheckBox) getView().findViewById(R.id.checkbox_languages);
+			interests.add(mInterest.getText().toString());
+		}
+		
+		if(	( (CheckBox) getView().findViewById(R.id.checkbox_food) ).isChecked()	){
+			CheckBox mInterest = (CheckBox) getView().findViewById(R.id.checkbox_food);
+			interests.add(mInterest.getText().toString());
+		}
+		
+		if(	( (CheckBox) getView().findViewById(R.id.checkbox_flirt) ).isChecked()	){
+			CheckBox mInterest = (CheckBox) getView().findViewById(R.id.checkbox_flirt);
 			interests.add(mInterest.getText().toString());
 		}
 		

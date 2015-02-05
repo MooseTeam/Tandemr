@@ -71,7 +71,10 @@ public class User implements Parcelable {
 		this.interests = new String []{
 				"Sports",
 				"Party",
-				"Music"
+				"Music",
+				"Food",
+				"Flirt",
+				"Languages"
 			};
 		
 		this.phone="01747603793";
